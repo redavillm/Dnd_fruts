@@ -1,8 +1,7 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import { ProgressBar, Item } from "./components";
-import { DndContext, DragEndEvent, useDroppable } from "@dnd-kit/core";
+import { ProgressBar, Item, DroppableZone } from "./components";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { progresBarCounter } from "./scripts/progresBarCounter";
 import { TItem } from "./types";
 import { isDropZoneCorrect } from "./scripts/isDropZoneCorrect";
@@ -15,9 +14,6 @@ import {
 export default function Home() {
   const [progres, setProgres] = useState<number>(DEF_STATE_OF_PROGRESS);
   const [gameItems, setGameItems] = useState<TItem[]>(GAME_ITEMS);
-  const { setNodeRef } = useDroppable({
-    id: "droppable",
-  });
 
   //Таймер обратного отсчет прогресса
   useEffect(() => {
@@ -60,17 +56,13 @@ export default function Home() {
   return (
     <div className="w-96 mx-auto mt-20">
       <DndContext onDragEnd={handlerDragEnd}>
-        <div
-          ref={setNodeRef}
-          className="mx-auto ellipse bg-sky-300 border-solid border-4 border-slate-400"
-        />
+        <DroppableZone />
         <div className="flex space-x-4 mt-4 justify-around text-center">
           {gameItems.map((item) => (
             <Item key={item.id} id={item.id} number={item.number} />
           ))}
         </div>
       </DndContext>
-
       <ProgressBar progres={progres} />
     </div>
   );

@@ -1,4 +1,3 @@
-"use client";
 import { TProgressBarProps } from "../types";
 
 export const ProgressBar = (props: TProgressBarProps) => {

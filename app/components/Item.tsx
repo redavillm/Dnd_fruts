@@ -1,4 +1,5 @@
 "use client";
+
 import { TItem } from "@/app/types";
 import { useDraggable } from "@dnd-kit/core";
 
@@ -16,7 +17,7 @@ export const Item = (props: TItem) => {
   };
 
   return (
-    <div key={id}>
+    <div>
       {number > 0 ? (
         <img
           ref={setNodeRef}
