@@ -21,7 +21,7 @@ export default function Home() {
 
     const timer = setInterval(() => {
       setProgres((prev) => --prev); // Уменьшаем прогресс бар
-    }, 5000);
+    }, 36000);
 
     return () => clearInterval(timer);
   }, [progres]);
