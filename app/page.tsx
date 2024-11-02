@@ -6,11 +6,15 @@ import { DndContext, DragEndEvent, useDroppable } from "@dnd-kit/core";
 import { progresBarCounter } from "./scripts/progresBarCounter";
 import { TItem } from "./types";
 import { isDropZoneCorrect } from "./scripts/isDropZoneCorrect";
-import { ConstGameItems, DefaultStateOfProgress } from "./constants";
+import {
+  GAME_ITEMS,
+  DEF_STATE_OF_PROGRESS,
+  PROGRESS_ROLLBACK_TIME,
+} from "./constants";
 
 export default function Home() {
-  const [progres, setProgres] = useState<number>(DefaultStateOfProgress);
-  const [gameItems, setGameItems] = useState<TItem[]>(ConstGameItems);
+  const [progres, setProgres] = useState<number>(DEF_STATE_OF_PROGRESS);
+  const [gameItems, setGameItems] = useState<TItem[]>(GAME_ITEMS);
   const { setNodeRef } = useDroppable({
     id: "droppable",
   });
@@ -19,9 +23,11 @@ export default function Home() {
   useEffect(() => {
     if (progres <= 0) return;
 
+    const rollBackTime = PROGRESS_ROLLBACK_TIME * 1000;
+
     const timer = setInterval(() => {
       setProgres((prev) => --prev); // Уменьшаем прогресс бар
-    }, 36000);
+    }, rollBackTime);
 
     return () => clearInterval(timer);
   }, [progres]);
